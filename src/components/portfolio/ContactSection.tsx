@@ -57,50 +57,54 @@ export default function ContactSection() {
 
   const onSubmit = async (data: ContactFormData) => {
     setIsSubmitting(true);
-    
-    // Simulate form submission
     await new Promise(resolve => setTimeout(resolve, 1000));
-    
+
     console.log('Form submitted:', data);
-    
+
     toast({
       title: 'Message Sent!',
       description: 'Thank you for reaching out. I will get back to you soon.',
     });
-    
+
     form.reset();
     setIsSubmitting(false);
   };
 
   return (
-    <section id="contact" className="py-16 xl:py-24 px-4 xl:px-8 bg-accent/30">
+    <section
+      id="contact"
+      className="py-16 xl:py-24 px-4 xl:px-8 bg-gradient-to-br from-indigo-50 via-white to-purple-50 animate-in fade-in duration-700"
+    >
       <div className="container mx-auto">
         <div className="max-w-6xl mx-auto space-y-8 xl:space-y-12">
+
           {/* Section Title */}
-          <div className="text-center space-y-2">
+          <div className="text-center space-y-2 animate-in slide-in-from-top-6 duration-700">
             <h2 className="text-2xl xl:text-4xl font-bold text-foreground">
               Get In Touch
             </h2>
-            <div className="w-16 xl:w-20 h-1 bg-primary mx-auto rounded-full" />
+            <div className="w-16 xl:w-20 h-1 bg-gradient-to-r from-indigo-500 to-purple-500 mx-auto rounded-full" />
             <p className="text-base xl:text-lg text-muted-foreground mt-4">
               Feel free to reach out for collaborations or just a friendly chat
             </p>
           </div>
 
           <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
+
             {/* Contact Information */}
-            <div className="space-y-6">
-              <Card className="border-2">
+            <div className="space-y-6 animate-in slide-in-from-left-8 duration-700">
+              <Card className="border-2 transition-all duration-500 hover:-translate-y-1 hover:border-purple-400 hover:shadow-xl bg-gradient-to-br from-white to-purple-50">
                 <CardHeader>
                   <CardTitle className="text-xl xl:text-2xl">Contact Information</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   {contactInfo.map((info, index) => {
                     const Icon = info.icon;
+
                     const content = (
-                      <div className="flex items-start gap-4 p-3 rounded-lg hover:bg-accent transition-colors">
-                        <div className="p-2 bg-primary/10 rounded-lg">
-                          <Icon className="h-5 w-5 text-primary" />
+                      <div className="flex items-start gap-4 p-3 rounded-lg transition-all duration-500 hover:bg-indigo-50 hover:scale-[1.02]">
+                        <div className="p-2 rounded-lg bg-indigo-100 transition-all duration-500">
+                          <Icon className="h-5 w-5 text-indigo-600 transition-all duration-500" />
                         </div>
                         <div className="flex-1">
                           <p className="text-sm text-muted-foreground">{info.label}</p>
@@ -130,22 +134,27 @@ export default function ContactSection() {
             </div>
 
             {/* Contact Form */}
-            <Card className="border-2">
+            <Card className="border-2 animate-in slide-in-from-right-8 duration-700 transition-all hover:-translate-y-1 hover:border-indigo-400 hover:shadow-xl bg-gradient-to-br from-white to-indigo-50">
               <CardHeader>
                 <CardTitle className="text-xl xl:text-2xl">Send a Message</CardTitle>
               </CardHeader>
               <CardContent>
                 <Form {...form}>
                   <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+
                     <FormField
                       control={form.control}
                       name="name"
                       rules={{ required: 'Name is required' }}
                       render={({ field }) => (
-                        <FormItem>
+                        <FormItem className="transition-all duration-500 animate-in fade-in">
                           <FormLabel>Name</FormLabel>
                           <FormControl>
-                            <Input placeholder="Your name" {...field} />
+                            <Input
+                              placeholder="Your name"
+                              {...field}
+                              className="focus-visible:ring-2 focus-visible:ring-indigo-400 transition-all duration-500"
+                            />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -163,10 +172,15 @@ export default function ContactSection() {
                         }
                       }}
                       render={({ field }) => (
-                        <FormItem>
+                        <FormItem className="transition-all duration-500 animate-in fade-in">
                           <FormLabel>Email</FormLabel>
                           <FormControl>
-                            <Input type="email" placeholder="your.email@example.com" {...field} />
+                            <Input
+                              type="email"
+                              placeholder="your.email@example.com"
+                              {...field}
+                              className="focus-visible:ring-2 focus-visible:ring-purple-400 transition-all duration-500"
+                            />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -178,10 +192,14 @@ export default function ContactSection() {
                       name="subject"
                       rules={{ required: 'Subject is required' }}
                       render={({ field }) => (
-                        <FormItem>
+                        <FormItem className="transition-all duration-500 animate-in fade-in">
                           <FormLabel>Subject</FormLabel>
                           <FormControl>
-                            <Input placeholder="What's this about?" {...field} />
+                            <Input
+                              placeholder="What's this about?"
+                              {...field}
+                              className="focus-visible:ring-2 focus-visible:ring-indigo-400 transition-all duration-500"
+                            />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -193,12 +211,12 @@ export default function ContactSection() {
                       name="message"
                       rules={{ required: 'Message is required' }}
                       render={({ field }) => (
-                        <FormItem>
+                        <FormItem className="transition-all duration-500 animate-in fade-in">
                           <FormLabel>Message</FormLabel>
                           <FormControl>
                             <Textarea
                               placeholder="Your message..."
-                              className="min-h-32 resize-none"
+                              className="min-h-32 resize-none focus-visible:ring-2 focus-visible:ring-purple-400 transition-all duration-500"
                               {...field}
                             />
                           </FormControl>
@@ -209,12 +227,13 @@ export default function ContactSection() {
 
                     <Button
                       type="submit"
-                      className="w-full gap-2"
+                      className="w-full gap-2 transition-all duration-500 hover:scale-[1.03] active:scale-[0.98] bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-purple-500 hover:to-indigo-500 shadow-lg hover:shadow-indigo-300/40"
                       disabled={isSubmitting}
                     >
                       <Send className="h-4 w-4" />
                       {isSubmitting ? 'Sending...' : 'Send Message'}
                     </Button>
+
                   </form>
                 </Form>
               </CardContent>

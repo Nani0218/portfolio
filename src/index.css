@@ -86,6 +86,9 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    background: linear-gradient(to bottom right, hsl(220 25% 97%), hsl(270 60% 95%));
+    @apply text-foreground;
   }
+
+  
 }

@@ -1,46 +1,54 @@
-import { Card, CardContent } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Code2, Palette, Wrench, GitBranch } from 'lucide-react';
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Code2, Palette, Wrench, GitBranch } from "lucide-react";
 
 const skillCategories = [
   {
-    title: 'Core Technologies',
+    title: "Core Technologies",
     icon: Code2,
-    skills: ['HTML5', 'CSS3', 'JavaScript', 'React.js'],
-    color: 'text-primary'
+    skills: ["HTML5", "CSS3", "JavaScript", "React.js"],
+    color: "text-primary",
   },
   {
-    title: 'Styling Frameworks',
+    title: "Styling Frameworks",
     icon: Palette,
-    skills: ['Tailwind CSS', 'Bootstrap'],
-    color: 'text-secondary'
+    skills: ["Tailwind CSS", "Bootstrap"],
+    color: "text-secondary",
   },
   {
-    title: 'Development Tools',
+    title: "Development Tools",
     icon: Wrench,
-    skills: ['VS Code', 'API Integration'],
-    color: 'text-chart-3'
+    skills: ["VS Code", "API Integration"],
+    color: "text-chart-3",
   },
   {
-    title: 'Version Control',
+    title: "Version Control",
     icon: GitBranch,
-    skills: ['Git', 'GitHub'],
-    color: 'text-chart-4'
-  }
+    skills: ["Git", "GitHub"],
+    color: "text-chart-4",
+  },
 ];
 
 export default function SkillsSection() {
   return (
-    <section id="skills" className="py-16 xl:py-24 px-4 xl:px-8">
+    <section
+      id="skills"
+      className="py-16 xl:py-24 px-4 xl:px-8 bg-gradient-to-b from-background to-accent/20"
+    >
       <div className="container mx-auto">
-        <div className="max-w-6xl mx-auto space-y-8 xl:space-y-12">
+        <div className="max-w-6xl mx-auto space-y-12">
+
           {/* Section Title */}
-          <div className="text-center space-y-2">
+          <div className="text-center space-y-3 animate-fadeIn">
             <h2 className="text-2xl xl:text-4xl font-bold text-foreground">
               Technical Skills
             </h2>
-            <div className="w-16 xl:w-20 h-1 bg-primary mx-auto rounded-full" />
-            <p className="text-base xl:text-lg text-muted-foreground mt-4">
+
+            <div className="relative w-20 mx-auto">
+              <div className="h-1 bg-primary rounded-full animate-width" />
+            </div>
+
+            <p className="text-base xl:text-lg text-muted-foreground">
               Technologies and tools I work with
             </p>
           </div>
@@ -49,27 +57,30 @@ export default function SkillsSection() {
           <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
             {skillCategories.map((category, index) => {
               const Icon = category.icon;
+
               return (
                 <Card
                   key={category.title}
-                  className="border-2 hover:border-primary transition-all duration-300 hover:shadow-lg"
-                  style={{ animationDelay: `${index * 100}ms` }}
+                  className="border-2 hover:border-primary transition-all duration-500 hover:shadow-2xl hover:-translate-y-1 animate-slideUp"
+                  style={{ animationDelay: `${index * 150}ms` }}
                 >
                   <CardContent className="p-6">
                     <div className="flex items-start gap-4">
-                      <div className={`${category.color} p-3 bg-accent rounded-lg`}>
-                        <Icon className="h-6 w-6" />
+                      <div className={`${category.color} bg-accent p-3 rounded-xl`}>
+                        <Icon className="w-6 h-6" />
                       </div>
+
                       <div className="flex-1 space-y-3">
-                        <h3 className="text-lg xl:text-xl font-semibold text-foreground">
+                        <h3 className="text-lg xl:text-xl font-semibold">
                           {category.title}
                         </h3>
+
                         <div className="flex flex-wrap gap-2">
                           {category.skills.map((skill) => (
                             <Badge
                               key={skill}
                               variant="secondary"
-                              className="text-sm px-3 py-1"
+                              className="text-sm px-3 py-1 hover:scale-110 transition transform duration-300 cursor-default"
                             >
                               {skill}
                             </Badge>
@@ -83,21 +94,24 @@ export default function SkillsSection() {
             })}
           </div>
 
-          {/* All Skills List */}
-          <Card className="bg-primary/5 border-primary/20">
-            <CardContent className="p-6 xl:p-8">
-              <h3 className="text-lg xl:text-xl font-semibold text-foreground mb-4 text-center">
+          {/* All Skills */}
+          <Card className="bg-primary/5 border-primary/20 animate-fadeIn">
+            <CardContent className="p-8">
+              <h3 className="text-lg xl:text-xl font-semibold text-center mb-6">
                 Complete Skill Set
               </h3>
+
               <div className="flex flex-wrap justify-center gap-3">
-                {skillCategories.flatMap(cat => cat.skills).map((skill) => (
-                  <Badge
-                    key={skill}
-                    className="text-sm xl:text-base px-4 py-2 bg-primary text-primary-foreground hover:bg-primary/90"
-                  >
-                    {skill}
-                  </Badge>
-                ))}
+                {skillCategories
+                  .flatMap((cat) => cat.skills)
+                  .map((skill) => (
+                    <Badge
+                      key={skill}
+                      className="px-4 py-2 bg-primary text-primary-foreground hover:bg-primary/90 hover:-translate-y-1 transition-all duration-300"
+                    >
+                      {skill}
+                    </Badge>
+                  ))}
               </div>
             </CardContent>
           </Card>

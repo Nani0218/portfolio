@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { Download, Mail } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 export default function HeroSection() {
   const scrollToContact = () => {
@@ -17,60 +18,123 @@ export default function HeroSection() {
   };
 
   const handleDownloadResume = () => {
-    // Create a simple resume download (in production, this would link to an actual PDF)
     alert('Resume download functionality - Please add your resume PDF to the public folder');
   };
 
   return (
     <section
       id="home"
-      className="min-h-screen flex items-center justify-center px-4 xl:px-8 pt-16"
+      className="relative min-h-screen flex items-center justify-center px-4 xl:px-8 pt-20 overflow-hidden"
     >
-      <div className="container mx-auto">
-        <div className="max-w-4xl mx-auto text-center space-y-6 xl:space-y-8 animate-fade-in">
+      {/* Soft gradient glow background */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 0.5 }}
+        transition={{ duration: 1.2 }}
+        className="absolute inset-0 bg-gradient-to-tr from-primary/10 via-transparent to-secondary/10"
+      />
+
+      {/* Floating blur circles */}
+      <motion.div
+        animate={{ y: [0, 15, 0] }}
+        transition={{ repeat: Infinity, duration: 6 }}
+        className="absolute top-20 left-10 w-40 h-40 bg-primary/10 blur-3xl rounded-full"
+      />
+
+      <motion.div
+        animate={{ y: [0, -15, 0] }}
+        transition={{ repeat: Infinity, duration: 7 }}
+        className="absolute bottom-20 right-10 w-40 h-40 bg-secondary/10 blur-3xl rounded-full"
+      />
+
+      <div className="container mx-auto relative">
+        <div className="max-w-4xl mx-auto text-center space-y-6 xl:space-y-8">
+
           {/* Greeting */}
-          <p className="text-base xl:text-lg text-muted-foreground font-medium">
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            viewport={{ once: true }}
+            className="text-base xl:text-lg text-muted-foreground font-medium"
+          >
             Hello, I'm
-          </p>
+          </motion.p>
 
           {/* Name */}
-          <h1 className="text-3xl xl:text-6xl font-bold text-foreground leading-tight">
+          <motion.h1
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="text-3xl xl:text-6xl font-bold text-foreground leading-tight"
+          >
             NAGA VEERENDRA KUMAR
             <br />
-            <span className="text-primary">KAMBALA</span>
-          </h1>
+            <motion.span
+              initial={{ backgroundSize: "0% 100%" }}
+              animate={{ backgroundSize: "100% 100%" }}
+              transition={{ duration: 1, delay: 0.4 }}
+              className="text-primary bg-to-r from-primary/40 to-secondary/40 bg-[length:0%_100%] bg-no-repeat"
+            >
+              KAMBALA
+            </motion.span>
+          </motion.h1>
 
           {/* Title */}
-          <h2 className="text-xl xl:text-3xl font-semibold text-secondary">
+          <motion.h2
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="text-xl xl:text-3xl font-semibold text-secondary"
+          >
             Frontend Developer
-          </h2>
+          </motion.h2>
 
           {/* Tagline */}
-          <p className="text-base xl:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+          <motion.p
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+            viewport={{ once: true }}
+            className="text-base xl:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed"
+          >
             Passionate about creating responsive, user-friendly web applications
             with modern technologies and best practices
-          </p>
+          </motion.p>
 
           {/* CTA Buttons */}
-          <div className="flex flex-col xl:flex-row items-center justify-center gap-4 pt-4">
-            <Button
-              size="lg"
-              onClick={scrollToContact}
-              className="w-full xl:w-auto gap-2"
-            >
-              <Mail className="h-5 w-5" />
-              Contact Me
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              onClick={handleDownloadResume}
-              className="w-full xl:w-auto gap-2"
-            >
-              <Download className="h-5 w-5" />
-              Download Resume
-            </Button>
-          </div>
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="flex flex-col xl:flex-row items-center justify-center gap-4 pt-4"
+          >
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <Button
+                size="lg"
+                onClick={scrollToContact}
+                className="w-full xl:w-auto gap-2 shadow-md hover:shadow-primary/30 transition-all"
+              >
+                <Mail className="h-5 w-5" />
+                Contact Me
+              </Button>
+            </motion.div>
+
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <Button
+                size="lg"
+                variant="outline"
+                onClick={handleDownloadResume}
+                className="w-full xl:w-auto gap-2 border-primary/30 hover:bg-primary/10 transition-all"
+              >
+                <Download className="h-5 w-5" />
+                Download Resume
+              </Button>
+            </motion.div>
+          </motion.div>
         </div>
       </div>
     </section>

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { Menu, X } from 'lucide-react';
+import { Menu } from 'lucide-react';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 
 const navItems = [
@@ -18,18 +18,18 @@ export default function Navigation() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      setIsScrolled(window.scrollY > 30);
 
-      // Update active section based on scroll position
-      const sections = navItems.map(item => item.href.substring(1));
-      for (const section of sections) {
-        const element = document.getElementById(section);
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          if (rect.top <= 100 && rect.bottom >= 100) {
-            setActiveSection(section);
-            break;
-          }
+      const sections = navItems.map(s => s.href.substring(1));
+
+      for (const id of sections) {
+        const el = document.getElementById(id);
+        if (!el) continue;
+
+        const rect = el.getBoundingClientRect();
+        if (rect.top <= 120 && rect.bottom >= 120) {
+          setActiveSection(id);
+          break;
         }
       }
     };
@@ -40,56 +40,57 @@ export default function Navigation() {
 
   const scrollToSection = (href: string) => {
     const element = document.getElementById(href.substring(1));
-    if (element) {
-      const offset = 80;
-      const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - offset;
+    if (!element) return;
 
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
-      });
-    }
+    const offset = 90;
+    const position =
+      element.getBoundingClientRect().top + window.pageYOffset - offset;
+
+    window.scrollTo({ top: position, behavior: 'smooth' });
   };
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-background/95 backdrop-blur-md shadow-md' : 'bg-transparent'
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        isScrolled
+          ? 'bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-lg'
+          : 'bg-transparent'
       }`}
     >
       <div className="container mx-auto px-4 xl:px-8">
         <div className="flex items-center justify-between h-16 xl:h-20">
+
           {/* Logo */}
-          <a
-            href="#home"
-            onClick={(e) => {
-              e.preventDefault();
-              scrollToSection('#home');
-            }}
-            className="text-lg xl:text-xl font-bold text-primary hover:text-secondary transition-colors"
+          <button
+            onClick={() => scrollToSection('#home')}
+            className="text-xl xl:text-2xl font-extrabold tracking-wide text-primary hover:scale-110 transition-transform duration-300"
           >
             NVK
-          </a>
+          </button>
 
           {/* Desktop Navigation */}
-          <div className="hidden xl:flex items-center gap-8">
-            {navItems.map((item) => (
-              <a
+          <div className="hidden xl:flex items-center gap-10">
+            {navItems.map(item => (
+              <button
                 key={item.name}
-                href={item.href}
-                onClick={(e) => {
-                  e.preventDefault();
-                  scrollToSection(item.href);
-                }}
-                className={`text-sm font-medium transition-colors hover:text-primary ${
+                onClick={() => scrollToSection(item.href)}
+                className={`relative text-sm font-medium transition-all duration-300 ${
                   activeSection === item.href.substring(1)
                     ? 'text-primary'
-                    : 'text-foreground/80'
+                    : 'text-foreground/80 hover:text-primary'
                 }`}
               >
                 {item.name}
-              </a>
+
+                {/* Underline animation */}
+                <span
+                  className={`absolute left-0 right-0 -bottom-2 mx-auto h-0.5 rounded-full bg-primary transition-all duration-300 ${
+                    activeSection === item.href.substring(1)
+                      ? 'w-full opacity-100'
+                      : 'w-0 opacity-0 group-hover:w-full'
+                  }`}
+                />
+              </button>
             ))}
           </div>
 
@@ -100,24 +101,24 @@ export default function Navigation() {
                 <Menu className="h-6 w-6" />
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="w-64">
-              <div className="flex flex-col gap-4 mt-8">
-                {navItems.map((item) => (
-                  <a
+
+            <SheetContent
+              side="right"
+              className="w-64 animate-slide-left bg-background/95 backdrop-blur"
+            >
+              <div className="flex flex-col gap-4 mt-12">
+                {navItems.map(item => (
+                  <button
                     key={item.name}
-                    href={item.href}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      scrollToSection(item.href);
-                    }}
-                    className={`text-base font-medium transition-colors hover:text-primary py-2 ${
+                    onClick={() => scrollToSection(item.href)}
+                    className={`text-lg text-left px-2 py-2 rounded-md transition-all duration-300 ${
                       activeSection === item.href.substring(1)
-                        ? 'text-primary'
-                        : 'text-foreground/80'
+                        ? 'text-primary bg-primary/10 font-semibold'
+                        : 'text-foreground/70 hover:bg-accent hover:text-primary'
                     }`}
                   >
                     {item.name}
-                  </a>
+                  </button>
                 ))}
               </div>
             </SheetContent>

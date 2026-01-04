@@ -4,22 +4,25 @@ import { Lightbulb, BookOpen, Target } from 'lucide-react';
 const traits = [
   {
     title: 'Self-Motivator',
-    description: 'Driven by passion and commitment to continuous improvement and excellence in every project',
+    description:
+      'Driven by passion and commitment to continuous improvement and excellence in every project.',
     icon: Target,
-    color: 'text-primary'
+    color: 'from-primary/10 to-primary',
   },
   {
     title: 'Continuous Learner',
-    description: 'Always exploring new technologies and best practices to stay current in the evolving tech landscape',
+    description:
+      'Always exploring new technologies and best practices to stay current in the evolving tech landscape.',
     icon: BookOpen,
-    color: 'text-secondary'
+    color: 'from-secondary/70 to-secondary',
   },
   {
     title: 'Problem Solving & Attention to Detail',
-    description: 'Analytical mindset with keen eye for detail, ensuring high-quality, bug-free solutions',
+    description:
+      'Analytical mindset with keen eye for detail, ensuring high-quality, bug-free solutions.',
     icon: Lightbulb,
-    color: 'text-chart-3'
-  }
+    color: 'from-emerald-400/70 to-emerald-500',
+  },
 ];
 
 export default function PersonalitySection() {
@@ -27,7 +30,8 @@ export default function PersonalitySection() {
     <section className="py-16 xl:py-24 px-4 xl:px-8">
       <div className="container mx-auto">
         <div className="max-w-6xl mx-auto space-y-8 xl:space-y-12">
-          {/* Section Title */}
+
+          {/* Title */}
           <div className="text-center space-y-2">
             <h2 className="text-2xl xl:text-4xl font-bold text-foreground">
               Personality Traits
@@ -38,23 +42,34 @@ export default function PersonalitySection() {
             </p>
           </div>
 
-          {/* Traits Grid */}
+          {/* Grid */}
           <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
             {traits.map((trait, index) => {
               const Icon = trait.icon;
               return (
                 <Card
                   key={trait.title}
-                  className="border-2 hover:border-primary transition-all duration-300 hover:shadow-lg group"
-                  style={{ animationDelay: `${index * 100}ms` }}
+                  className="group relative border-2 hover:shadow-2xl hover:-translate-y-1 transition-all duration-500 bg-background/80 backdrop-blur"
+                  style={{ animationDelay: `${index * 120}ms` }}
                 >
-                  <CardContent className="p-6 space-y-4 text-center">
-                    <div className={`${trait.color} mx-auto p-4 bg-accent rounded-full w-fit group-hover:scale-110 transition-transform`}>
-                      <Icon className="h-8 w-8" />
+                  {/* Gradient glow border */}
+                  <div
+                    className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl bg-gradient-to-br ${trait.color} blur-lg`}
+                  />
+
+                  <CardContent className="relative p-6 space-y-4 text-center z-10">
+
+                    {/* Icon */}
+                    <div className="mx-auto p-4 bg-accent rounded-full w-fit group-hover:scale-110 transition-transform duration-300">
+                      <Icon className="h-8 w-8 text-primary group-hover:animate-pulse" />
                     </div>
+
+                    {/* Title */}
                     <h3 className="text-lg xl:text-xl font-semibold text-foreground">
                       {trait.title}
                     </h3>
+
+                    {/* Description */}
                     <p className="text-sm xl:text-base text-muted-foreground leading-relaxed">
                       {trait.description}
                     </p>
